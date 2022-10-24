@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # /// = relative path, //// = absolute path
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -15,6 +15,10 @@ class Todo(db.Model):
     complete = db.Column(db.Boolean)
 
 
+@app.before_first_request
+def create_tables():
+    db.create_all()
+    
 @app.route("/")
 def home():
     todo_list = Todo.query.all()
