@@ -23,8 +23,10 @@
             </form>
           </div>
         </div>
-        
-        <table class="table mt-4">
+
+        <div class="card mt-4" style=" box-shadow: 3px 3px 3px 3px #D3D3D3;">
+          <div class="card-body">
+            <table class="table">
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -39,9 +41,15 @@
           {% for todo in todo_list %}
             <tr>
               <th>{{todo.id }}</th>
+
+            {% if todo.complete == False %}
               <th>{{todo.title }}</th>
-              <th><a href="/update/{{ todo.id }}" class="btn btn-primary">Update</th>
-              <th><a href="/delete/{{ todo.id }}" class="btn btn-danger">Delete</th>
+            {% else %}
+              <th><del>{{todo.title }}</del></th>
+            {% endif %}
+
+            <th><a href="/update/{{ todo.id }}" class="btn btn-primary">Update</th>
+            <th><a href="/delete/{{ todo.id }}" class="btn btn-danger">Delete</th>
 
             {% if todo.complete == False %}
                 <th><p class="text-danger">NOT COMPLETED</p></th>
@@ -54,6 +62,8 @@
           {% endfor %}
 
         </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
